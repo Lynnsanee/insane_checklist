@@ -101,7 +101,8 @@ class _mainScreen extends State<MyApp> {
                   )
                 ],
               ), // checklist title information
-              Expanded(child: ListView(children: itemsToWidgets(myChecklist.items))),
+              Expanded(
+                  child: ListView(children: itemsToWidgets(myChecklist.items))),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [Text("a"), Text("b"), Text("c")],
@@ -119,60 +120,62 @@ class _mainScreen extends State<MyApp> {
       widgetList.add(
         Padding(
           padding: const EdgeInsets.all(4.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
-                child: Checkbox(
-                  value: item.finished,
-                  onChanged: (bool? newValue) {
-                    item.finished = newValue!;
-                    refresh();
-                  },
+          child: Container(
+            color: Colors.cyan,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+                  child: Checkbox(
+                    value: item.finished,
+                    onChanged: (bool? newValue) {
+                      item.finished = newValue!;
+                      refresh();
+                    },
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 80,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(item.title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18)),
-                    Text(
-                      item.groupTopic,
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 20,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                      child: Icon(Icons.calendar_today_outlined),
-                    ),
-                    Expanded(
-                      child: Text(
-                        dateRelatesToCurrentTimeAs(item.dueDate),
-                        style: TextStyle(fontSize: 18),
+                Expanded(
+                  flex: 80,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(item.title,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            item.groupTopic,
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          Row(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                                child: Icon(Icons.calendar_today_outlined),
+                              ),
+                              Text(
+                                dateRelatesToCurrentTimeAs(item.dueDate),
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                child: IconButton(
-                  icon: Icon(Icons.info),
-                  onPressed: () {},
-                ),
-              )
-            ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                  child: IconButton(
+                    icon: Icon(Icons.info),
+                    onPressed: () {},
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       );
