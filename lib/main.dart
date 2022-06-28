@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:insane_checklist/CheckList.dart';
 import 'package:insane_checklist/CheckListItem.dart';
@@ -14,6 +15,31 @@ class MyApp extends StatefulWidget {
 }
 
 class _mainScreen extends State<MyApp> {
+  List<String> weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+
+  List<String> months = [
+    "December",
+    "Januari",
+    "Februari",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+  ];
+
   List<CheckListItem> myItems = [
     CheckListItem(0, "Buy apple", "Buy a nice apple", "Groceries",
         DateTime(2022, 6, 28), DateTime(2022, 6, 28), false, 2),
@@ -32,7 +58,7 @@ class _mainScreen extends State<MyApp> {
     Checklist myChecklist = Checklist(
         1,
         "Example checklist",
-        "This checklist is an example",
+        "This checklist is an example and temporary placeholder for a reaaaaaaal checklist",
         "Other",
         DateTime(2022, 25),
         (DateTime(2022, 6, 31)),
@@ -41,13 +67,47 @@ class _mainScreen extends State<MyApp> {
         myItems);
 
     return MaterialApp(
-      title: 'Welcome to Flutter',
+      title: 'Insane Checklists',
       home: Scaffold(
         body: Center(
-          child: SizedBox(
-              height: 300,
-              width: double.infinity,
-              child: ListView(children: itemsToWidgets(myChecklist.items))),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("app title/logo here"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text("dropdown menu here"),
+                  Text("confirm/loadin button")
+                ],
+              ), // checklist selection menu
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 2),
+                    child: Text("${myChecklist.title}",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                  ),
+                  Text(
+                      "${weekDays[myChecklist.dueDate.weekday]}, ${myChecklist.dueDate.day}. ${months[myChecklist.dueDate.month]}",
+                      style: TextStyle(fontSize: 18)),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "${myChecklist.description}",
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                  )
+                ],
+              ), // checklist title information
+              Expanded(child: ListView(children: itemsToWidgets(myChecklist.items))),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [Text("a"), Text("b"), Text("c")],
+              ) // checklist tools, like adding a new checklist, or removing them // checklist content
+            ],
+          ),
         ),
       ),
     );
